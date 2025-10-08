@@ -7,5 +7,5 @@ document.body.innerHTML = `
 
 const button = document.createElement("button");
 button.textContent = "🎃";
-//button.id = "clicker";
+button.id = "clicker";
 document.body.append(button);
