@@ -28,3 +28,4 @@ function autoClick() {
   console.log("Button clicked", counter);
 }
 
+console.log("Auto clicker started " + autoClicker);
