@@ -11,6 +11,7 @@ console.log("herro");
 console.log(" 'ello ");
 const button = document.createElement("button");
 let counter = 0;
+const autoClicker = setInterval(autoClick, 1000);
 button.textContent = "🎃";
 button.id = "clicker";
 document.body.append(button);
@@ -20,3 +21,10 @@ button.addEventListener("click", () => {
   document.getElementById("counter")!.textContent = counter.toString();
   console.log("Button clicked", counter);
 });
+
+function autoClick() {
+  counter++;
+  document.getElementById("counter")!.textContent = counter.toString();
+  console.log("Button clicked", counter);
+}
+
