@@ -33,7 +33,6 @@ let lastTime = 0;
 const incremtPerSecond = 1;
 
 function animate(timeStamp: number) {
-
   if (!lastTime) {
     lastTime = timeStamp;
     requestAnimationFrame(animate);
@@ -42,13 +41,12 @@ function animate(timeStamp: number) {
 
   const delta = timeStamp - lastTime;
   const increment = (delta / 1000) * incremtPerSecond;
-  
+
   counter += increment;
-  document.getElementById("counter")!.textContent = Math.floor(counter).toString();
+  document.getElementById("counter")!.textContent = Math.floor(counter)
+    .toString();
   lastTime = timeStamp;
   requestAnimationFrame(animate);
 }
 
 requestAnimationFrame(animate);
-
-
