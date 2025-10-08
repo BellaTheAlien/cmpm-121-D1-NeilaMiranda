@@ -4,7 +4,7 @@ import "./style.css";
 document.body.innerHTML = `
   <p>Example image asset: <img src="${exampleIconUrl}" class="icon" /></p>
   <div class = "myCounter">
-    <p>Counter: <span id="counter">0</span></p>
+    <p>Counter: <span id="counter">0</span> pumpkins</p>
   </div>
 `;
 console.log("herro");
@@ -15,7 +15,7 @@ button.textContent = "🎃";
 button.id = "clicker";
 document.body.append(button);
 
-addEventListener("click", () => {
+button.addEventListener("click", () => {
   counter++;
   document.getElementById("counter")!.textContent = counter.toString();
   console.log("Button clicked", counter);
