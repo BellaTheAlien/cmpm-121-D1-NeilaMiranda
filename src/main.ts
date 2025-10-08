@@ -11,21 +11,17 @@ console.log("herro");
 console.log(" 'ello ");
 const button = document.createElement("button");
 let counter = 0;
-const autoClicker = setInterval(autoClick, 1000);
+setInterval(incrementClick, 1000);
 button.textContent = "🎃";
 button.id = "clicker";
 document.body.append(button);
 
 button.addEventListener("click", () => {
-  counter++;
-  document.getElementById("counter")!.textContent = counter.toString();
-  console.log("Button clicked", counter);
+  incrementClick();
 });
 
-function autoClick() {
+function incrementClick() {
   counter++;
   document.getElementById("counter")!.textContent = counter.toString();
   console.log("Button clicked", counter);
 }
-
-console.log("Auto clicker started " + autoClicker);
