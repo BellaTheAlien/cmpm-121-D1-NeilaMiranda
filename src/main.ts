@@ -13,6 +13,7 @@ console.log(" 'ello ");
 
 const pumpkin_button = document.createElement("button");
 const clicker_buyer = document.createElement("button");
+const psl_buyer = document.createElement("button");
 const counter_display = document.getElementById("counter")!;
 
 let counter = 0;
@@ -30,15 +31,30 @@ clicker_buyer.id = "clicker_buyer";
 clicker_buyer.disabled = true;
 document.body.append(clicker_buyer);
 
+//buy pls button
+psl_buyer.textContent = "Buy a Pumpkin Spice Latte (100 pumpkins)";
+psl_buyer.id = "pls_buyer";
+psl_buyer.disabled = true;
+document.body.append(psl_buyer);
+
 pumpkin_button.addEventListener("click", () => {
   incrementClick();
 });
 
 clicker_buyer.addEventListener("click", () => {
   counter -= 10;
-  incremt_per_second += 1;
+  incremt_per_second += 0.1;
   console.log("Bought Clicker");
   counter_display.textContent = Math.floor(counter).toString();
+});
+
+psl_buyer.addEventListener("click", () => {
+  if (counter >= 100) {
+    counter -= 100;
+    incremt_per_second += 2;
+    console.log("Bought Pumpkin Spice Latte");
+    counter_display.textContent = Math.floor(counter).toString();
+  }
 });
 
 function incrementClick() {
@@ -48,6 +64,9 @@ function incrementClick() {
 
   if (counter >= 10) {
     clicker_buyer.disabled = false;
+  }
+  if (counter >= 100) {
+    psl_buyer.disabled = false;
   }
 }
 
@@ -70,6 +89,11 @@ function animattion_loop(timeStamp: number) {
     clicker_buyer.disabled = true;
   } else {
     clicker_buyer.disabled = false;
+  }
+  if (counter < 100) {
+    psl_buyer.disabled = true;
+  } else {
+    psl_buyer.disabled = false;
   }
 
   //document.getElementById("counter")!.textContent = Math.floor(counter).toString();
