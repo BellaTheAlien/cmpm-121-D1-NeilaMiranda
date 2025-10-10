@@ -11,14 +11,21 @@ document.body.innerHTML = `
 console.log("herro");
 console.log(" 'ello ");
 
-const button = document.createElement("button");
+const pumpkinButton = document.createElement("button");
+const clicker_buyer = document.createElement("button");
 let counter = 0;
-//setInterval(incrementClick, 1000);
-button.textContent = "🎃";
-button.id = "clicker";
-document.body.append(button);
 
-button.addEventListener("click", () => {
+//pumpikn button
+pumpkinButton.textContent = "🎃";
+pumpkinButton.id = "clicker";
+document.body.append(pumpkinButton);
+
+//buy clicker button
+clicker_buyer.textContent = "Buy Clicker (10 pumpkins)";
+clicker_buyer.id = "clicker_buyer";
+document.body.append(clicker_buyer);
+
+pumpkinButton.addEventListener("click", () => {
   incrementClick();
 });
 
@@ -26,11 +33,15 @@ function incrementClick() {
   counter++;
   document.getElementById("counter")!.textContent = counter.toString();
   console.log("Button clicked", counter);
+
+  if (counter >= 10) {
+    clicker_buyer.disabled = false;
+  }
 }
 
 //step 4 - animation loop
 let lastTime = 0;
-const incremtPerSecond = 1;
+const incremtPerSecond = 0;
 
 function animate(timeStamp: number) {
   if (!lastTime) {
