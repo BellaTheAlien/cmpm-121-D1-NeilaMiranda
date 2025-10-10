@@ -11,22 +11,34 @@ document.body.innerHTML = `
 console.log("herro");
 console.log(" 'ello ");
 
-const pumpkinButton = document.createElement("button");
+const pumpkin_button = document.createElement("button");
 const clicker_buyer = document.createElement("button");
+const counter_display = document.getElementById("counter")!;
+
 let counter = 0;
+let last_time_stamp = 0;
+let incremt_per_second = 0;
 
 //pumpikn button
-pumpkinButton.textContent = "🎃";
-pumpkinButton.id = "clicker";
-document.body.append(pumpkinButton);
+pumpkin_button.textContent = "🎃";
+pumpkin_button.id = "clicker";
+document.body.append(pumpkin_button);
 
 //buy clicker button
 clicker_buyer.textContent = "Buy Clicker (10 pumpkins)";
 clicker_buyer.id = "clicker_buyer";
+clicker_buyer.disabled = true;
 document.body.append(clicker_buyer);
 
-pumpkinButton.addEventListener("click", () => {
+pumpkin_button.addEventListener("click", () => {
   incrementClick();
+});
+
+clicker_buyer.addEventListener("click", () => {
+  counter -= 10;
+  incremt_per_second += 1;
+  console.log("Bought Clicker");
+  counter_display.textContent = Math.floor(counter).toString();
 });
 
 function incrementClick() {
@@ -40,24 +52,30 @@ function incrementClick() {
 }
 
 //step 4 - animation loop
-let lastTime = 0;
-const incremtPerSecond = 0;
 
-function animate(timeStamp: number) {
-  if (!lastTime) {
-    lastTime = timeStamp;
-    requestAnimationFrame(animate);
+function animattion_loop(timeStamp: number) {
+  if (!last_time_stamp) {
+    last_time_stamp = timeStamp;
+    requestAnimationFrame(animattion_loop);
     return;
   }
 
-  const delta = timeStamp - lastTime;
-  const increment = (delta / 1000) * incremtPerSecond;
+  const delta = timeStamp - last_time_stamp;
+  const increment = (delta / 1000) * incremt_per_second;
 
   counter += increment;
-  document.getElementById("counter")!.textContent = Math.floor(counter)
-    .toString();
-  lastTime = timeStamp;
-  requestAnimationFrame(animate);
+  counter_display.textContent = Math.floor(counter).toString();
+
+  if (counter < 10) {
+    clicker_buyer.disabled = true;
+  } else {
+    clicker_buyer.disabled = false;
+  }
+
+  //document.getElementById("counter")!.textContent = Math.floor(counter).toString();
+
+  last_time_stamp = timeStamp;
+  requestAnimationFrame(animattion_loop);
 }
 
-requestAnimationFrame(animate);
+requestAnimationFrame(animattion_loop);
