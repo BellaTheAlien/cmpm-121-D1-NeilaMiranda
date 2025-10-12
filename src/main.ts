@@ -29,96 +29,65 @@ const pumpkin_button = document.createElement("button");
 const rate_of_pumpkins = document.getElementById("rate-of-pumpkins")!;
 const counter_display = document.getElementById("counter")!;
 
-//the update/buy buttons
-const pumpkin_seed_buyer = document.createElement("button");
-const psl_buyer = document.createElement("button");
-const pumpikn_pach = document.createElement("button");
+//making the upgrades data driven
+const upgrades = [
+  { name: "Pumpkin Seeds", cost: 10, rate: 0.1, count: 0, id: "auto_clicker" },
+  { name: "Pumpkin Spice Latte", cost: 100, rate: 2, count: 0, id: "psl" },
+  {
+    name: "Pumpkin Patch",
+    cost: 1000,
+    rate: 50,
+    count: 0,
+    id: "pumpkin_patch",
+  },
+];
 
 //the counter and rate of pumpkins variables
 let counter = 0;
 let last_time_stamp = 0;
 let incremt_per_second = 0;
 
-//starting upgrade price variables
-let seed_price = 10;
-let psl_price = 100;
-let pumpkin_patch_price = 1000;
-
 //pumpikn button
 pumpkin_button.textContent = "🎃";
 pumpkin_button.id = "clicker";
 document.body.append(pumpkin_button);
 
-//buy clicker button - auto clicker
-pumpkin_seed_buyer.textContent = "Buy Pumpkin Seeds (" + seed_price +
-  " pumpkins)";
-pumpkin_seed_buyer.id = "clicker_buyer";
-pumpkin_seed_buyer.disabled = true;
-document.body.append(pumpkin_seed_buyer);
+//creating the upgrade buttons
+upgrades.forEach((upgrade) => {
+  const upgradeElement = document.createElement("div");
+  upgradeElement.classList.add("upgrade");
 
-//buy pls button - pumpkin spice latte auto clicker
-psl_buyer.textContent = "Buy a Pumpkin Spice Latte (" + psl_price +
-  " pumpkins)";
-psl_buyer.id = "pls_buyer";
-psl_buyer.disabled = true;
-document.body.append(psl_buyer);
+  const upgradeButton = document.createElement("button");
+  upgradeButton.id = upgrade.id;
+  upgradeButton.textContent = `Buy ${upgrade.name} - (${upgrade.cost} pumpkins)`;
+  upgradeButton.disabled = true;
 
-//buy a pumpkin patch button
-pumpikn_pach.textContent = "Buy a Pumpkin Patch (" + pumpkin_patch_price +
-  " pumpkins)";
-pumpikn_pach.id = "pumpkin_patch_buyer";
-pumpikn_pach.disabled = true;
-document.body.append(pumpikn_pach);
+  const upgradeInfo = document.createElement("span");
+  upgradeInfo.id = `${upgrade.id}-count`;
+  upgradeInfo.textContent = `Owned: ${upgrade.count}`;
+
+  upgradeButton.addEventListener("click", () => {
+    if (counter >= upgrade.cost) {
+      counter -= upgrade.cost;
+      incremt_per_second += upgrade.rate;
+      upgrade.count++;
+      upgrade.cost = Math.round((upgrade.cost * 1.15) * 100) / 100;
+      upgradeButton.textContent = `Buy ${upgrade.name} (${
+        upgrade.cost.toFixed(2)
+      } pumpkins)`;
+      console.log(`Bought ${upgrade.name}`);
+      counter_display.textContent = Math.floor(counter).toString();
+    }
+  });
+
+  upgradeElement.appendChild(upgradeButton);
+  upgradeElement.appendChild(upgradeInfo);
+  document.body.appendChild(upgradeElement);
+});
 
 //event listeners for the pumpkin button and the upgrade buttons
 pumpkin_button.addEventListener("click", () => {
   incrementClick();
-});
-
-//buy clicker button event listener
-
-//auto clicker adds 0.1 pumpkins per second
-pumpkin_seed_buyer.addEventListener("click", () => {
-  if (counter >= seed_price) {
-    counter -= seed_price;
-    incremt_per_second += 0.1;
-    seed_price = Math.round((seed_price * 1.15) * 100) / 100;
-    pumpkin_seed_buyer.textContent = "Buy Pumpkin Seeds (" +
-      seed_price.toFixed(2) +
-      " pumpkins)";
-    console.log("Bought Clicker");
-    counter_display.textContent = Math.floor(counter).toString();
-  }
-});
-
-//buy psl button event listener
-//psl auto clicker adds 2 pumpkins per second
-psl_buyer.addEventListener("click", () => {
-  if (counter >= psl_price) {
-    counter -= psl_price;
-    incremt_per_second += 2;
-    psl_price = Math.round((psl_price * 1.15) * 100) / 100;
-    psl_buyer.textContent = "Buy a Pumpkin Spice Latte (" +
-      psl_price.toFixed(2) +
-      " pumpkins)";
-    console.log("Bought Pumpkin Spice Latte");
-    counter_display.textContent = Math.floor(counter).toString();
-  }
-});
-
-//buy pumpkin patch button event listener
-//pumpkin patch auto clicker adds 50 pumpkins per second
-pumpikn_pach.addEventListener("click", () => {
-  if (counter >= pumpkin_patch_price) {
-    counter -= pumpkin_patch_price;
-    incremt_per_second += 50;
-    pumpkin_patch_price = Math.round((pumpkin_patch_price * 1.15) * 100) / 100;
-    pumpikn_pach.textContent = "Buy a Pumpkin Patch (" +
-      pumpkin_patch_price.toFixed(2) +
-      " pumpkins)";
-    console.log("Bought Pumpkin Patch");
-    counter_display.textContent = Math.floor(counter).toString();
-  }
 });
 
 // the function that increments the counter when the pumpkin button is clicked
@@ -126,18 +95,6 @@ function incrementClick() {
   counter++;
   document.getElementById("counter")!.textContent = counter.toString();
   console.log("Button clicked", counter);
-
-  //check if the counter is enough to buy upgrades
-  //enable buttons if enough counter
-  if (counter >= seed_price) {
-    pumpkin_seed_buyer.disabled = false;
-  }
-  if (counter >= psl_price) {
-    psl_buyer.disabled = false;
-  }
-  if (counter >= pumpkin_patch_price) {
-    pumpikn_pach.disabled = false;
-  }
 }
 
 //step 4 - animation loop
@@ -150,30 +107,30 @@ function animattion_loop(timeStamp: number) {
   }
 
   const delta = timeStamp - last_time_stamp;
-  const increment = (delta / 1000) * incremt_per_second;
+  incremt_per_second = upgrades.reduce(
+    (total, upgrade) => total + upgrade.count * upgrade.rate,
+    0,
+  );
+  //const incremt_per_second = (upgrades[0].count * upgrades[0].rate) +
+  //  (upgrades[1].count * upgrades[1].rate) +
+  //  (upgrades[2].count * upgrades[2].rate);
+  //const increment = (delta / 1000) * incremt_per_second;
 
-  counter += increment;
+  counter += (incremt_per_second * delta) / 1000;
   counter_display.textContent = Math.floor(counter).toString();
   rate_of_pumpkins.textContent = incremt_per_second.toFixed(1) +
     " pumpkins per second";
 
-  //check if the counter is enough to buy upgrades
-  //disable buttons if not enough counter, enable if enough counter
-  if (counter < seed_price) {
-    pumpkin_seed_buyer.disabled = true;
-  } else {
-    pumpkin_seed_buyer.disabled = false;
-  }
-  if (counter < psl_price) {
-    psl_buyer.disabled = true;
-  } else {
-    psl_buyer.disabled = false;
-  }
-  if (counter < pumpkin_patch_price) {
-    pumpikn_pach.disabled = true;
-  } else {
-    pumpikn_pach.disabled = false;
-  }
+  //update the number of upgrades owned
+  upgrades.forEach((upgrade) => {
+    const upgradeButton = document.getElementById(
+      upgrade.id,
+    ) as HTMLButtonElement;
+    const upgradeInfo = document.getElementById(`${upgrade.id}-count`);
+
+    upgradeButton.disabled = counter < upgrade.cost;
+    upgradeInfo!.textContent = `Owned: ${upgrade.count}`;
+  });
 
   last_time_stamp = timeStamp;
   requestAnimationFrame(animattion_loop);
