@@ -59,7 +59,8 @@ upgrades.forEach((upgrade) => {
 
   const upgradeButton = document.createElement("button");
   upgradeButton.id = upgrade.id;
-  upgradeButton.textContent = `Buy ${upgrade.name} - (${upgrade.cost} pumpkins)`;
+  upgradeButton.textContent =
+    `Buy ${upgrade.name} - (${upgrade.cost} pumpkins)`;
   upgradeButton.disabled = true;
 
   const upgradeInfo = document.createElement("span");
