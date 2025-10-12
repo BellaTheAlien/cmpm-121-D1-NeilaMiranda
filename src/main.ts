@@ -31,7 +31,6 @@ const clicker_buyer = document.createElement("button");
 const psl_buyer = document.createElement("button");
 const pumpikn_pach = document.createElement("button");
 
-
 let counter = 0;
 let last_time_stamp = 0;
 let incremt_per_second = 0;
@@ -118,7 +117,8 @@ function animattion_loop(timeStamp: number) {
 
   counter += increment;
   counter_display.textContent = Math.floor(counter).toString();
-  rate_of_pumpkins.textContent = incremt_per_second.toFixed(1) + " pumpkins per second";
+  rate_of_pumpkins.textContent = incremt_per_second.toFixed(1) +
+    " pumpkins per second";
 
   if (counter < 10) {
     clicker_buyer.disabled = true;
