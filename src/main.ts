@@ -40,6 +40,14 @@ const upgrades = [
     count: 0,
     id: "pumpkin_patch",
   },
+  { name: "Pumpkin Cake", cost: 5000, rate: 200, count: 0, id: "pumpkin_cake" },
+  {
+    name: "Pumpkin Soup",
+    cost: 10000,
+    rate: 500,
+    count: 0,
+    id: "pumpkin_soup",
+  },
 ];
 
 //the counter and rate of pumpkins variables
