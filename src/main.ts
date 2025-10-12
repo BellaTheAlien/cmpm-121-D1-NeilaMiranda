@@ -35,25 +35,33 @@ let counter = 0;
 let last_time_stamp = 0;
 let incremt_per_second = 0;
 
+//starting upgrade price
+let clicker_price = 10;
+let psl_price = 100;
+let pumpkin_patch_price = 1000;
+
 //pumpikn button
 pumpkin_button.textContent = "🎃";
 pumpkin_button.id = "clicker";
 document.body.append(pumpkin_button);
 
 //buy clicker button
-clicker_buyer.textContent = "Buy Pumpkin Seeds (10 pumpkins)";
+clicker_buyer.textContent = "Buy Pumpkin Seeds (" + clicker_price +
+  " pumpkins)";
 clicker_buyer.id = "clicker_buyer";
 clicker_buyer.disabled = true;
 document.body.append(clicker_buyer);
 
 //buy pls button
-psl_buyer.textContent = "Buy a Pumpkin Spice Latte (100 pumpkins)";
+psl_buyer.textContent = "Buy a Pumpkin Spice Latte (" + psl_price +
+  " pumpkins)";
 psl_buyer.id = "pls_buyer";
 psl_buyer.disabled = true;
 document.body.append(psl_buyer);
 
 //but a pumpkin patch button
-pumpikn_pach.textContent = "Buy a Pumpkin Patch (1000 pumpkins)";
+pumpikn_pach.textContent = "Buy a Pumpkin Patch (" + pumpkin_patch_price +
+  " pumpkins)";
 pumpikn_pach.id = "pumpkin_patch_buyer";
 pumpikn_pach.disabled = true;
 document.body.append(pumpikn_pach);
@@ -63,25 +71,39 @@ pumpkin_button.addEventListener("click", () => {
 });
 
 clicker_buyer.addEventListener("click", () => {
-  counter -= 10;
-  incremt_per_second += 0.1;
-  console.log("Bought Clicker");
-  counter_display.textContent = Math.floor(counter).toString();
+  if (counter >= clicker_price) {
+    counter -= clicker_price;
+    incremt_per_second += 0.1;
+    clicker_price = Math.round((clicker_price * 1.15) * 100) / 100;
+    clicker_buyer.textContent = "Buy Pumpkin Seeds (" +
+      clicker_price.toFixed(2) +
+      " pumpkins)";
+    console.log("Bought Clicker");
+    counter_display.textContent = Math.floor(counter).toString();
+  }
 });
 
 psl_buyer.addEventListener("click", () => {
-  if (counter >= 100) {
-    counter -= 100;
+  if (counter >= psl_price) {
+    counter -= psl_price;
     incremt_per_second += 2;
+    psl_price = Math.round((psl_price * 1.15) * 100) / 100;
+    psl_buyer.textContent = "Buy a Pumpkin Spice Latte (" +
+      psl_price.toFixed(2) +
+      " pumpkins)";
     console.log("Bought Pumpkin Spice Latte");
     counter_display.textContent = Math.floor(counter).toString();
   }
 });
 
 pumpikn_pach.addEventListener("click", () => {
-  if (counter >= 1000) {
-    counter -= 1000;
+  if (counter >= pumpkin_patch_price) {
+    counter -= pumpkin_patch_price;
     incremt_per_second += 50;
+    pumpkin_patch_price = Math.round((pumpkin_patch_price * 1.15) * 100) / 100;
+    pumpikn_pach.textContent = "Buy a Pumpkin Patch (" +
+      pumpkin_patch_price.toFixed(2) +
+      " pumpkins)";
     console.log("Bought Pumpkin Patch");
     counter_display.textContent = Math.floor(counter).toString();
   }
@@ -92,13 +114,13 @@ function incrementClick() {
   document.getElementById("counter")!.textContent = counter.toString();
   console.log("Button clicked", counter);
 
-  if (counter >= 10) {
+  if (counter >= clicker_price) {
     clicker_buyer.disabled = false;
   }
-  if (counter >= 100) {
+  if (counter >= psl_price) {
     psl_buyer.disabled = false;
   }
-  if (counter >= 1000) {
+  if (counter >= pumpkin_patch_price) {
     pumpikn_pach.disabled = false;
   }
 }
@@ -120,17 +142,17 @@ function animattion_loop(timeStamp: number) {
   rate_of_pumpkins.textContent = incremt_per_second.toFixed(1) +
     " pumpkins per second";
 
-  if (counter < 10) {
+  if (counter < clicker_price) {
     clicker_buyer.disabled = true;
   } else {
     clicker_buyer.disabled = false;
   }
-  if (counter < 100) {
+  if (counter < psl_price) {
     psl_buyer.disabled = true;
   } else {
     psl_buyer.disabled = false;
   }
-  if (counter < 1000) {
+  if (counter < pumpkin_patch_price) {
     pumpikn_pach.disabled = true;
   } else {
     pumpikn_pach.disabled = false;
