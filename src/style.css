@@ -1,3 +1,107 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #d97a4e;
+  color: #ecf0f1;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.game-container {
+  width: 80%;
+  max-width: 800px;
+  background-color: #d7946a;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.counter-area {
+  font-size: 2em;
+  margin: 5px 0;
+  font-weight: bold;
+}
+
+#rate-of-pumpkins {
+  font-size: 1em;
+  color: #ecf0f1;
+  font-weight: normal;
+}
+
+.instructions {
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ecf0f1;
+  padding-bottom: 20px;
+}
+
+#clicker {
+  font-size: 5em;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+  padding: auto;
+}
+
+#clicker:active {
+  transform: scale(0.9);
+}
+
+#upgrades-area {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.upgrade {
+  background-color: #ecd08c;
+  color: #13171c;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.upgrade p {
+  margin: 0;
+  color: #13171c;
+  flex-grow: 1;
+  text-align: left;
+}
+
+.upgrade span {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.upgrade button {
+  background-color: #d97a4e;
+  color: #ecf0f1;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  flex-shrink: 0;
+}
+
+.upgrade button:disabled {
+  background-color: #a0a0a0;
+  cursor: not-allowed;
+}
+.upgrade button:hover:not(:disabled) {
+  background-color: #c76b3a;
+}
+
 .icon {
   width: 64px;
   vertical-align: top;
