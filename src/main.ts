@@ -149,10 +149,12 @@ function incrementClick() {
 
 // -- Animation loop / Game loop --
 
-function animattion_loop(timeStamp: number) {
+// will update the counter based on the rate the user has and the UI elemnt is updated
+// runs per animation frame with "requestAnimationFrame"
+function animation_loop(timeStamp: number) {
   if (!lastTimeStamp) {
     lastTimeStamp = timeStamp;
-    requestAnimationFrame(animattion_loop);
+    requestAnimationFrame(animation_loop);
     return;
   }
 
@@ -161,10 +163,6 @@ function animattion_loop(timeStamp: number) {
     (total, upgrade) => total + upgrade.count * upgrade.rate,
     0,
   );
-  //const incremt_per_second = (upgrades[0].count * upgrades[0].rate) +
-  //  (upgrades[1].count * upgrades[1].rate) +
-  //  (upgrades[2].count * upgrades[2].rate);
-  //const increment = (delta / 1000) * incremt_per_second;
 
   counter += (incremtPerSecond * delta) / 1000;
   counterDisplay.textContent = Math.floor(counter).toString();
@@ -183,7 +181,7 @@ function animattion_loop(timeStamp: number) {
   });
 
   lastTimeStamp = timeStamp;
-  requestAnimationFrame(animattion_loop);
+  requestAnimationFrame(animation_loop);
 }
 
-requestAnimationFrame(animattion_loop);
+requestAnimationFrame(animation_loop);
