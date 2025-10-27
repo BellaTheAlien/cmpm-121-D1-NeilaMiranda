@@ -1,10 +1,11 @@
-//import exampleIconUrl from "./noun-paperclip-7598668-00449F.png";
-//<p>Example image asset: <img src="${exampleIconUrl}" class="icon" /></p>
 import "./style.css";
 
-//had some help from Gemini to clean up/understand the HYML style section
-//created a counter area, then an instructions area
-//then the buttons will be added via type script
+// had some help from Gemini to clean up/understand the HYML style section
+// created a counter area, then an instructions area
+// then the buttons will be added via type script
+
+// -- section off UI elements --
+
 document.body.innerHTML = `
   <div class = "game-container">
     <div class="counter-area">
@@ -22,17 +23,19 @@ document.body.innerHTML = `
   </div>
 `;
 
-//section project - interactivity
+// section project - interactivity
 console.log("herro");
 console.log(" 'ello ");
 
-//the pumpkin button and display for counter and rate of pumpkins
+// -- Creating the UI elements for the style.css --
+
+// the pumpkin button and display for counter and rate of pumpkins
 const pumpkinButton = document.createElement("button");
 const rateOfPumpkins = document.getElementById("rate-of-pumpkins")!;
 const counterDisplay = document.getElementById("counter")!;
 const upgradesArea = document.getElementById("upgrades-area")!;
 
-//making the upgrades data driven
+// -- the ungrade buttons elements --
 const upgrades = [
   {
     name: "Pumpkin Seeds",
@@ -77,17 +80,19 @@ const upgrades = [
   },
 ];
 
-//the counter and rate of pumpkins variables
+// the counter and rate of pumpkins variables
 let counter = 0;
 let lastTimeStamp = 0;
 let incremtPerSecond = 0;
 
-//pumpikn button
+// pumpikn button
 pumpkinButton.textContent = "🎃";
 pumpkinButton.id = "clicker";
 document.body.append(pumpkinButton);
 
-//creating the upgrade buttons
+// -- The events listeners for the buttons when clicked --
+
+// creating the upgrade buttons
 upgrades.forEach((upgrade) => {
   //create a div to hold the upgrade button and info
   const upgradeElement = document.createElement("div");
@@ -130,7 +135,7 @@ upgrades.forEach((upgrade) => {
   upgradesArea.appendChild(upgradeElement);
 });
 
-//event listeners for the pumpkin button and the upgrade buttons
+// event listeners for the pumpkin button and the upgrade buttons
 pumpkinButton.addEventListener("click", () => {
   incrementClick();
 });
@@ -142,7 +147,7 @@ function incrementClick() {
   console.log("Button clicked", counter);
 }
 
-//step 4 - animation loop
+// -- Animation loop / Game loop --
 
 function animattion_loop(timeStamp: number) {
   if (!lastTimeStamp) {
