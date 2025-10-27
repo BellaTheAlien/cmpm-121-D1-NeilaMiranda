@@ -31,7 +31,7 @@ console.log(" 'ello ");
 
 // the pumpkin button and display for counter and rate of pumpkins
 const pumpkinButton = document.createElement("button");
-const rateOfPumpkins = document.getElementById("rate-of-pumpkins")!;
+const pumpkinsPerSecDisplay = document.getElementById("rate-of-pumpkins")!;
 const counterDisplay = document.getElementById("counter")!;
 const upgradesArea = document.getElementById("upgrades-area")!;
 
@@ -168,7 +168,7 @@ function animattion_loop(timeStamp: number) {
 
   counter += (incremtPerSecond * delta) / 1000;
   counterDisplay.textContent = Math.floor(counter).toString();
-  rateOfPumpkins.textContent = incremtPerSecond.toFixed(1) +
+  pumpkinsPerSecDisplay.textContent = incremtPerSecond.toFixed(1) +
     " pumpkins per second";
 
   //update the number of upgrades owned
