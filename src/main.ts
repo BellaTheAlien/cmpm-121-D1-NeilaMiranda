@@ -8,6 +8,7 @@ import "./style.css";
 
 document.body.innerHTML = `
   <div class = "game-container">
+    <h1>Pumpkin Clicker 🎃</h1>
     <div class="counter-area">
       <p><span id="counter">0</span> pumpkins</p>
       <p id="rate-of-pumpkins">0.0 pumpkins per second</p>
