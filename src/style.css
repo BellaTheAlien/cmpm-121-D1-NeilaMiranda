@@ -51,6 +51,13 @@ body {
   transform: scale(0.9);
 }
 
+/* the buttons lights up and incresses in size as its hovered over*/
+/* Taken inspiration from Riyer4 on git from thier Taco Bell clicker game*/
+#clicker:hover {
+  transform: scale(1.1);
+  filter: brightness(1.2);
+}
+
 #upgrades-area {
   margin-top: 20px;
   display: flex;
